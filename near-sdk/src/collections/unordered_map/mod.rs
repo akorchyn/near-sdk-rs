@@ -4,9 +4,9 @@
 mod iter;
 pub use iter::Iter;
 
-use crate::collections::{append, append_slice, Vector};
-use crate::{env, IntoStorageKey};
-use borsh::{to_vec, BorshDeserialize, BorshSerialize};
+use crate::collections::{Vector, append, append_slice};
+use crate::{IntoStorageKey, env};
+use borsh::{BorshDeserialize, BorshSerialize, to_vec};
 use near_sdk_macros::near;
 use std::mem::size_of;
 
@@ -52,11 +52,7 @@ impl<K, V> UnorderedMap<K, V> {
     pub fn len(&self) -> u64 {
         let keys_len = self.keys.len();
         let values_len = self.values.len();
-        if keys_len != values_len {
-            env::panic_str(ERR_INCONSISTENT_STATE)
-        } else {
-            keys_len
-        }
+        if keys_len != values_len { env::panic_str(ERR_INCONSISTENT_STATE) } else { keys_len }
     }
 
     /// Returns `true` if the map contains no elements.

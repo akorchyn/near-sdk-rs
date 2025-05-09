@@ -65,7 +65,7 @@ use near_sdk_macros::near;
 
 pub use self::iter::{Drain, Iter, IterMut};
 use super::ERR_INCONSISTENT_STATE;
-use crate::{env, IntoStorageKey};
+use crate::{IntoStorageKey, env};
 
 use super::IndexMap;
 
@@ -528,7 +528,7 @@ where
 #[cfg(test)]
 mod tests {
     use arbitrary::{Arbitrary, Unstructured};
-    use borsh::{to_vec, BorshDeserialize};
+    use borsh::{BorshDeserialize, to_vec};
     use rand::{Rng, RngCore, SeedableRng};
     use std::ops::{Bound, IndexMut};
 

@@ -1,12 +1,12 @@
 use crate::fungible_token::core::FungibleTokenCore;
 use crate::fungible_token::events::{FtBurn, FtTransfer};
 use crate::fungible_token::receiver::ext_ft_receiver;
-use crate::fungible_token::resolver::{ext_ft_resolver, FungibleTokenResolver};
+use crate::fungible_token::resolver::{FungibleTokenResolver, ext_ft_resolver};
 use near_sdk::collections::LookupMap;
 use near_sdk::json_types::U128;
 use near_sdk::{
-    assert_one_yocto, env, log, near, require, AccountId, Gas, IntoStorageKey, PromiseOrValue,
-    PromiseResult, StorageUsage,
+    AccountId, Gas, IntoStorageKey, PromiseOrValue, PromiseResult, StorageUsage, assert_one_yocto,
+    env, log, near, require,
 };
 
 const GAS_FOR_RESOLVE_TRANSFER: Gas = Gas::from_tgas(5);

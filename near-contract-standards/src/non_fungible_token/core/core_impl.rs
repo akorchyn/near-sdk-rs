@@ -1,7 +1,7 @@
 use super::resolver::NonFungibleTokenResolver;
+use crate::non_fungible_token::core::NonFungibleTokenCore;
 use crate::non_fungible_token::core::receiver::ext_nft_receiver;
 use crate::non_fungible_token::core::resolver::ext_nft_resolver;
-use crate::non_fungible_token::core::NonFungibleTokenCore;
 use crate::non_fungible_token::events::{NftMint, NftTransfer};
 use crate::non_fungible_token::metadata::TokenMetadata;
 use crate::non_fungible_token::token::{Token, TokenId};
@@ -10,8 +10,8 @@ use near_sdk::borsh::BorshSerialize;
 use near_sdk::collections::{LookupMap, TreeMap, UnorderedSet};
 use near_sdk::json_types::Base64VecU8;
 use near_sdk::{
-    assert_one_yocto, env, near, require, AccountId, BorshStorageKey, Gas, IntoStorageKey,
-    PromiseOrValue, PromiseResult, StorageUsage,
+    AccountId, BorshStorageKey, Gas, IntoStorageKey, PromiseOrValue, PromiseResult, StorageUsage,
+    assert_one_yocto, env, near, require,
 };
 use std::collections::HashMap;
 use std::ops::Deref;

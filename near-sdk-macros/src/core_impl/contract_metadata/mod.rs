@@ -1,6 +1,6 @@
 #![allow(clippy::manual_unwrap_or_default)]
 
-use darling::{ast::NestedMeta, Error, FromMeta};
+use darling::{Error, FromMeta, ast::NestedMeta};
 use proc_macro2::TokenStream;
 use quote::quote;
 

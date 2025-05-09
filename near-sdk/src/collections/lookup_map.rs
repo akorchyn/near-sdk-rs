@@ -3,10 +3,10 @@
 //! makes this map more efficient in the number of reads and writes.
 use std::marker::PhantomData;
 
-use borsh::{to_vec, BorshDeserialize, BorshSerialize};
+use borsh::{BorshDeserialize, BorshSerialize, to_vec};
 
 use crate::collections::append_slice;
-use crate::{env, IntoStorageKey};
+use crate::{IntoStorageKey, env};
 use near_sdk_macros::near;
 
 const ERR_KEY_SERIALIZATION: &str = "Cannot serialize key with Borsh";

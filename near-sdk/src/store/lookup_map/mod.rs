@@ -11,7 +11,7 @@ use once_cell::unsync::OnceCell;
 use super::ERR_NOT_EXIST;
 use crate::store::key::{Identity, ToKey};
 use crate::utils::{EntryState, StableMap};
-use crate::{env, CacheEntry, IntoStorageKey};
+use crate::{CacheEntry, IntoStorageKey, env};
 
 pub use entry::{Entry, OccupiedEntry, VacantEntry};
 
@@ -468,8 +468,8 @@ mod tests {
     use crate::store::key::{Keccak256, ToKey};
     use crate::test_utils::test_env::setup_free;
     use arbitrary::{Arbitrary, Unstructured};
-    use rand::seq::SliceRandom;
     use rand::RngCore;
+    use rand::seq::SliceRandom;
     use rand::{Rng, SeedableRng};
     use std::collections::HashMap;
 

@@ -1,7 +1,7 @@
 mod impls;
 
 use crate::store::key::{Identity, ToKey};
-use crate::{env, IntoStorageKey};
+use crate::{IntoStorageKey, env};
 use borsh::BorshSerialize;
 use std::borrow::Borrow;
 use std::fmt;
@@ -149,8 +149,8 @@ mod tests {
     use crate::store::key::{Identity, Keccak256, ToKey};
     use crate::test_utils::test_env::setup_free;
     use arbitrary::{Arbitrary, Unstructured};
-    use rand::seq::SliceRandom;
     use rand::RngCore;
+    use rand::seq::SliceRandom;
     use rand::{Rng, SeedableRng};
     use std::collections::HashSet;
 

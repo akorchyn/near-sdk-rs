@@ -1,5 +1,5 @@
 use near_sdk::test_utils::get_logs;
-use near_sdk::{near, AccountId};
+use near_sdk::{AccountId, near};
 
 #[near(event_json(standard = "test_standard"))]
 pub enum TestEvents<'a, 'b, T>

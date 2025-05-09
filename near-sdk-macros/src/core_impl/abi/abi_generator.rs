@@ -1,9 +1,9 @@
 use proc_macro2::{Span, TokenStream as TokenStream2};
 use quote::{format_ident, quote};
-use syn::{parse_quote, Attribute, Expr, Lit::Str, Meta::NameValue, MetaNameValue, Type};
+use syn::{Attribute, Expr, Lit::Str, Meta::NameValue, MetaNameValue, Type, parse_quote};
 
 use crate::core_impl::{
-    utils, BindgenArgType, ImplItemMethodInfo, ItemImplInfo, MethodKind, ReturnKind, SerializerType,
+    BindgenArgType, ImplItemMethodInfo, ItemImplInfo, MethodKind, ReturnKind, SerializerType, utils,
 };
 
 pub fn generate(i: &ItemImplInfo) -> TokenStream2 {
@@ -288,11 +288,7 @@ pub fn parse_rustdoc(attrs: &[Attribute]) -> Option<String> {
         .collect::<Vec<_>>()
         .join("\n");
 
-    if doc.is_empty() {
-        None
-    } else {
-        Some(doc)
-    }
+    if doc.is_empty() { None } else { Some(doc) }
 }
 
 // Rustfmt removes comas.

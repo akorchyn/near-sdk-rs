@@ -1011,10 +1011,10 @@ pub use crate::types::*;
 #[cfg(all(feature = "unit-testing", not(target_arch = "wasm32")))]
 pub use environment::mock;
 #[cfg(all(feature = "unit-testing", not(target_arch = "wasm32")))]
-pub use environment::mock::test_vm_config;
-#[cfg(all(feature = "unit-testing", not(target_arch = "wasm32")))]
 // Re-export to avoid breakages
 pub use environment::mock::MockedBlockchain;
+#[cfg(all(feature = "unit-testing", not(target_arch = "wasm32")))]
+pub use environment::mock::test_vm_config;
 #[cfg(all(feature = "unit-testing", not(target_arch = "wasm32")))]
 pub use test_utils::context::VMContext;
 
