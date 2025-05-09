@@ -22,12 +22,12 @@ pub fn generate(i: &ItemImplInfo) -> TokenStream2 {
             pub extern "C" fn #near_abi_symbol() -> (*const u8, usize) {
                 use ::std::string::String;
 
-                let mut gen = ::near_sdk::schemars::gen::SchemaGenerator::default();
+                let mut generator = ::near_sdk::schemars::r#gen::SchemaGenerator::default();
                 let functions = vec![#(#functions),*];
                 let mut data = ::std::mem::ManuallyDrop::new(
                     ::near_sdk::serde_json::to_vec(&::near_sdk::__private::ChunkedAbiEntry::new(
                         functions,
-                        gen.into_root_schema_for::<String>(),
+                        generator.into_root_schema_for::<String>(),
                     ))
                     .unwrap(),
                 );
@@ -60,18 +60,18 @@ impl ImplItemMethodInfo {
     ///         args: vec![
     ///             near_sdk::__private::AbiJsonParameter {
     ///                 name: "arg0".to_string(),
-    ///                 type_schema: gen.subschema_for::<FancyStruct>(),
+    ///                 type_schema: generator.subschema_for::<FancyStruct>(),
     ///             },
     ///             near_sdk::__private::AbiJsonParameter {
     ///                 name: "arg1".to_string(),
-    ///                 type_schema: gen.subschema_for::<u64>(),
+    ///                 type_schema: generator.subschema_for::<u64>(),
     ///             }
     ///         ]
     ///     },
     ///     callbacks: vec![],
     ///     callbacks_vec: None,
     ///     result: Some(near_sdk::__private::AbiType::Json {
-    ///         type_schema: gen.subschema_for::<IsOk>(),
+    ///         type_schema: generator.subschema_for::<IsOk>(),
     ///     })
     /// }
     /// ```
@@ -247,7 +247,7 @@ impl ImplItemMethodInfo {
 fn generate_schema(ty: &Type, serializer_type: &SerializerType) -> TokenStream2 {
     match serializer_type {
         SerializerType::JSON => quote! {
-            gen.subschema_for::<#ty>()
+            generator.subschema_for::<#ty>()
         },
         SerializerType::Borsh => quote! {
             ::near_sdk::borsh::schema_container_of::<#ty>()
