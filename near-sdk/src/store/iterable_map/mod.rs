@@ -1319,12 +1319,12 @@ mod test_map {
 
         // Populate the map with some items.
         for _ in 0..50 {
-            let x = rng.gen_range(-10..10);
+            let x = rng.random_range(-10..10);
             m.insert(x, ());
         }
 
         for _ in 0..1000 {
-            let x = rng.gen_range(-10..10);
+            let x = rng.random_range(-10..10);
             match m.entry(x) {
                 Vacant(_) => {}
                 Occupied(e) => {

@@ -35,7 +35,7 @@ pub enum Contract {
 
 fn random_account_id(collection: Collection, seed: &str) -> AccountId {
     let mut rng = rand::thread_rng();
-    let random_num = rng.gen_range(10000000000000usize..99999999999999);
+    let random_num = rng.random_range(10000000000000usize..99999999999999);
     let account_id = format!(
         "dev-{}-{}-{}-{}",
         random_num,

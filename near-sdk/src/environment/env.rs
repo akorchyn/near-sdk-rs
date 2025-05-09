@@ -53,9 +53,7 @@ macro_rules! try_method_into_register {
 
 /// Same as `try_method_into_register` but expects the data.
 macro_rules! method_into_register {
-    ( $method:ident ) => {{
-        expect_register(try_method_into_register!($method))
-    }};
+    ( $method:ident ) => {{ expect_register(try_method_into_register!($method)) }};
 }
 
 //* Note: need specific length functions because const generics don't work with mem::transmute
@@ -63,20 +61,26 @@ macro_rules! method_into_register {
 
 pub(crate) unsafe fn read_register_fixed_20(register_id: u64) -> [u8; 20] {
     let mut hash = [MaybeUninit::<u8>::uninit(); 20];
-    sys::read_register(register_id, hash.as_mut_ptr() as _);
-    std::mem::transmute(hash)
+    unsafe {
+        sys::read_register(register_id, hash.as_mut_ptr() as _);
+        std::mem::transmute(hash)
+    }
 }
 
 pub(crate) unsafe fn read_register_fixed_32(register_id: u64) -> [u8; 32] {
     let mut hash = [MaybeUninit::<u8>::uninit(); 32];
-    sys::read_register(register_id, hash.as_mut_ptr() as _);
-    std::mem::transmute(hash)
+    unsafe {
+        sys::read_register(register_id, hash.as_mut_ptr() as _);
+        std::mem::transmute(hash)
+    }
 }
 
 pub(crate) unsafe fn read_register_fixed_64(register_id: u64) -> [u8; 64] {
     let mut hash = [MaybeUninit::<u8>::uninit(); 64];
-    sys::read_register(register_id, hash.as_mut_ptr() as _);
-    std::mem::transmute(hash)
+    unsafe {
+        sys::read_register(register_id, hash.as_mut_ptr() as _);
+        std::mem::transmute(hash)
+    }
 }
 
 /// Replaces the current low-level blockchain interface accessible through `env::*` with another
@@ -145,11 +149,7 @@ pub fn read_register(register_id: u64) -> Option<Vec<u8>> {
 /// Returns the size of the register. If register is not used returns `None`.
 pub fn register_len(register_id: u64) -> Option<u64> {
     let len = unsafe { sys::register_len(register_id) };
-    if len == u64::MAX {
-        None
-    } else {
-        Some(len)
-    }
+    if len == u64::MAX { None } else { Some(len) }
 }
 
 // ###############
@@ -418,7 +418,7 @@ pub fn random_seed() -> Vec<u8> {
 /// impl RngExample {
 ///     pub fn increment(&mut self) {
 ///         let mut rng = ChaCha20Rng::from_seed(env::random_seed_array());
-///         let value = rng.gen_range(0..1011);
+///         let value = rng.random_range(0..1011);
 ///         self.val += value;
 ///     }
 ///     pub fn get_value(&mut self) -> i32 {
@@ -630,11 +630,7 @@ pub fn ecrecover(
             malleability_flag as u64,
             ATOMIC_OP_REGISTER,
         );
-        if return_code == 0 {
-            None
-        } else {
-            Some(read_register_fixed_64(ATOMIC_OP_REGISTER))
-        }
+        if return_code == 0 { None } else { Some(read_register_fixed_64(ATOMIC_OP_REGISTER)) }
     }
 }
 
@@ -2202,9 +2198,9 @@ mod tests {
     #[cfg(not(target_arch = "wasm32"))]
     #[test]
     fn random_seed_smoke_test() {
-        crate::testing_env!(crate::test_utils::VMContextBuilder::new()
-            .random_seed([8; 32])
-            .build());
+        crate::testing_env!(
+            crate::test_utils::VMContextBuilder::new().random_seed([8; 32]).build()
+        );
 
         assert_eq!(super::random_seed(), [8; 32]);
     }
@@ -2257,9 +2253,9 @@ mod tests {
         let key: PublicKey =
             "ed25519:6E8sCci9badyRkXb3JoRpBj5p8C6Tw41ELDZoiihKEtp".parse().unwrap();
 
-        crate::testing_env!(crate::test_utils::VMContextBuilder::new()
-            .signer_account_pk(key.clone())
-            .build());
+        crate::testing_env!(
+            crate::test_utils::VMContextBuilder::new().signer_account_pk(key.clone()).build()
+        );
         assert_eq!(super::signer_account_pk(), key);
     }
 

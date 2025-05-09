@@ -557,7 +557,7 @@ impl schemars::JsonSchema for Promise {
         "Promise".to_string()
     }
 
-    fn json_schema(_gen: &mut schemars::gen::SchemaGenerator) -> schemars::schema::Schema {
+    fn json_schema(_gen: &mut schemars::r#gen::SchemaGenerator) -> schemars::schema::Schema {
         // Since promises are untyped, for now we represent Promise results with the schema
         // `true` which matches everything (i.e. always passes validation)
         schemars::schema::Schema::Bool(true)
@@ -627,8 +627,8 @@ impl<T: schemars::JsonSchema> schemars::JsonSchema for PromiseOrValue<T> {
         format!("PromiseOrValue{}", T::schema_name())
     }
 
-    fn json_schema(gen: &mut schemars::gen::SchemaGenerator) -> schemars::schema::Schema {
-        T::json_schema(gen)
+    fn json_schema(generator: &mut schemars::r#gen::SchemaGenerator) -> schemars::schema::Schema {
+        T::json_schema(generator)
     }
 }
 
@@ -639,8 +639,8 @@ mod tests {
     use crate::test_utils::get_created_receipts;
     use crate::test_utils::test_env::{alice, bob};
     use crate::{
-        test_utils::VMContextBuilder, testing_env, AccountId, Allowance, NearToken, Promise,
-        PublicKey,
+        AccountId, Allowance, NearToken, Promise, PublicKey, test_utils::VMContextBuilder,
+        testing_env,
     };
 
     fn pk() -> PublicKey {
