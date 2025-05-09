@@ -707,7 +707,7 @@ mod tests {
     }
 
     fn random(n: u64) -> Vec<u32> {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
         let mut vec = Vec::with_capacity(n as usize);
         (0..n).for_each(|_| {
             vec.push(rng.next_u32() % 1000);
